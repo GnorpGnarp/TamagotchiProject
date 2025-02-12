@@ -290,6 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481081290}
+  - component: {fileID: 481081291}
   m_Layer: 0
   m_Name: Ufo
   m_TagString: Tamagotchi
@@ -306,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 481081289}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -314,6 +315,26 @@ Transform:
   - {fileID: 1840030383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &481081291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481081289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7637e5afd6946e43b24cd2fd8fa74c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 481081290}
+  startX: 0
+  minX: -6
+  maxX: 6
+  moveSpeed: 1.5
+  jumpHeight: 0.1
+  jumpFrequency: 4.5
+  directionChangeTime: 4
 --- !u!1 &594355605
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +486,6 @@ GameObject:
   m_Component:
   - component: {fileID: 731279364}
   - component: {fileID: 731279363}
-  - component: {fileID: 731279365}
   m_Layer: 0
   m_Name: Tamagotchihappy
   m_TagString: Tamagotchi
@@ -534,32 +554,12 @@ Transform:
   m_GameObject: {fileID: 731279362}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 0.41, y: 0.41, z: 0.41}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 481081290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &731279365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731279362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7637e5afd6946e43b24cd2fd8fa74c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  character: {fileID: 731279364}
-  startX: 0
-  minX: -8
-  maxX: 8
-  moveSpeed: 2
-  jumpHeight: 0.3
-  jumpFrequency: 4.5
-  directionChangeTime: 3
 --- !u!1 &761971840
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1840030383}
   - component: {fileID: 1840030384}
-  - component: {fileID: 1840030385}
   m_Layer: 0
   m_Name: Tamagotchiverysad
   m_TagString: Tamagotchi
@@ -897,7 +896,7 @@ Transform:
   m_GameObject: {fileID: 1840030382}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 0.41, y: 0.41, z: 0.41}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -955,26 +954,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1840030385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1840030382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7637e5afd6946e43b24cd2fd8fa74c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  character: {fileID: 0}
-  startX: 0
-  minX: -8
-  maxX: 8
-  moveSpeed: 2
-  jumpHeight: 0.3
-  jumpFrequency: 4.5
-  directionChangeTime: 3
 --- !u!1 &1958721130
 GameObject:
   m_ObjectHideFlags: 0

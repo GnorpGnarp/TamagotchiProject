@@ -42,8 +42,7 @@ public class Tamagotchi : MonoBehaviour
         // Clamp the value between 0 and 100
         targetLoveValue = Mathf.Clamp(targetLoveValue, 0f, 100f);
 
-        // Debug log for target love value (to check the range of values)
-        Debug.Log("Target Love Value: " + targetLoveValue);
+  
 
         // Gradually interpolate to the target love value over time
         currentLoveValue = Mathf.MoveTowards(currentLoveValue, targetLoveValue, Time.deltaTime * loveMeterSmoothSpeed);
@@ -51,8 +50,7 @@ public class Tamagotchi : MonoBehaviour
         // Update the slider's value with the smooth value
         loveSlider.value = currentLoveValue;
 
-        // Debug log to check the slider's value (make sure it's updating properly)
-        Debug.Log("Slider Value: " + loveSlider.value);
+     
 
         // Change the slider fill color based on the love value
         if (currentLoveValue >= 70f)

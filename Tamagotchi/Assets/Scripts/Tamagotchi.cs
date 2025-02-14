@@ -45,16 +45,8 @@ public class Tamagotchi : MonoBehaviour
         // Debug log for target love value (to check the range of values)
         Debug.Log("Target Love Value: " + targetLoveValue);
 
-        // Only smooth transition if the difference between current and target is significant
-        if (Mathf.Abs(currentLoveValue - targetLoveValue) > 0.5f) // Prevent abrupt changes
-        {
-            currentLoveValue = Mathf.Lerp(currentLoveValue, targetLoveValue, Time.deltaTime * loveMeterSmoothSpeed);
-        }
-        else
-        {
-            // Directly set the value if the difference is very small
-            currentLoveValue = targetLoveValue;
-        }
+        // Gradually interpolate to the target love value over time
+        currentLoveValue = Mathf.MoveTowards(currentLoveValue, targetLoveValue, Time.deltaTime * loveMeterSmoothSpeed);
 
         // Update the slider's value with the smooth value
         loveSlider.value = currentLoveValue;

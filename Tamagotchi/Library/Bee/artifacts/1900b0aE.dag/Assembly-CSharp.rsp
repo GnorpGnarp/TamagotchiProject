@@ -357,6 +357,8 @@
 "Assets/Scripts/CoinManager.cs"
 "Assets/Scripts/CoinPickup.cs"
 "Assets/Scripts/CustomCursor.cs"
+"Assets/Scripts/DraggableItem.cs"
+"Assets/Scripts/DraggableShower.cs"
 "Assets/Scripts/Food.cs"
 "Assets/Scripts/FoodDrag.cs"
 "Assets/Scripts/FoodSpawner.cs"

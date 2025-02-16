@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;  // Required for UI events
 
-public class DraggableItem : MonoBehaviour
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector3 originalPosition; // To store the original position of the soap
-    private Vector3 offset; // The offset between the mouse position and the object
+    private RectTransform rectTransform; // To access the RectTransform component for UI elements
+    private Canvas parentCanvas; // Reference to the parent canvas to calculate relative position
     private bool isDragging = false; // To track whether the item is being dragged
 
     public Tamagotchi tamagotchiScript; // Reference to the Tamagotchi script to interact with
@@ -12,33 +14,31 @@ public class DraggableItem : MonoBehaviour
 
     private void Start()
     {
-        originalPosition = transform.position; // Store the initial position of the soap
+        rectTransform = GetComponent<RectTransform>(); // Get RectTransform for UI elements
+        originalPosition = rectTransform.position; // Store the initial position of the soap
+        parentCanvas = GetComponentInParent<Canvas>(); // Get the parent canvas
     }
 
-    private void OnMouseDown()
+    public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("Soap clicked");
-        // When the user clicks on the soap, start dragging
         isDragging = true;
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void OnMouseDrag()
+    public void OnDrag(PointerEventData eventData)
     {
         if (isDragging)
         {
             Debug.Log("Dragging soap");
-            // Update the position of the object based on the mouse position
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            newPosition.z = 0; // Ensure it's in 2D space
-            transform.position = newPosition;
+            // Update the position of the object based on mouse position
+            Vector2 localPointerPosition = eventData.position / parentCanvas.scaleFactor; // Adjust for canvas scale
+            rectTransform.position = localPointerPosition;
         }
     }
 
-    private void OnMouseUp()
+    public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("Soap released");
-        // When the user releases the mouse, stop dragging and return the object to its original position
         isDragging = false;
 
         // Check if the soap is over the Tamagotchi (use colliders to detect interaction)
@@ -48,7 +48,7 @@ public class DraggableItem : MonoBehaviour
         }
 
         // Snap back to original position
-        transform.position = originalPosition;
+        rectTransform.position = originalPosition;
     }
 
     private bool IsOverTamagotchi()
@@ -65,9 +65,9 @@ public class DraggableItem : MonoBehaviour
         // Apply soap by spawning foam
         if (foamInstance == null)
         {
-            foamInstance = Instantiate(foamPrefab, transform.position, Quaternion.identity);
+            foamInstance = Instantiate(foamPrefab, rectTransform.position, Quaternion.identity);
             foamInstance.SetActive(true);  // Show foam when soap is applied
-            tamagotchiScript.ApplySoap(transform.position); // Notify Tamagotchi to apply soap and spawn foam
+            tamagotchiScript.ApplySoap(rectTransform.position); // Notify Tamagotchi to apply soap and spawn foam
         }
     }
 }

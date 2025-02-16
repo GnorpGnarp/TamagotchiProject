@@ -359,6 +359,7 @@
 "Assets/Scripts/CustomCursor.cs"
 "Assets/Scripts/DraggableItem.cs"
 "Assets/Scripts/DraggableShower.cs"
+"Assets/Scripts/Foam.cs"
 "Assets/Scripts/Food.cs"
 "Assets/Scripts/FoodDrag.cs"
 "Assets/Scripts/FoodSpawner.cs"

@@ -60,6 +60,7 @@ public class Tamagotchi : MonoBehaviour
         else
             fillImage.color = Color.blue; // Blue (sad/low)
     }
+
     public void Feed()
     {
         hunger = 100f;
@@ -77,6 +78,7 @@ public class Tamagotchi : MonoBehaviour
         cleanliness = 100f;
         UpdateLoveMeter();
     }
+
     // Method to apply soap (spawn foam)
     public void ApplySoap(Vector3 spawnPosition)
     {
@@ -103,8 +105,7 @@ public class Tamagotchi : MonoBehaviour
             foamInstance.SetActive(false); // Deactivate foam (clean it away)
             cleanliness = 100f; // Reset cleanliness
             isSoapApplied = false; // Reset soap applied state
-                                   // Optionally, update the cleanliness meter or other logic
+            UpdateLoveMeter();  // Optionally, update the cleanliness meter or other logic
         }
     }
-
 }

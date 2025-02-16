@@ -1,75 +1,78 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class DraggableShower : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableShower : MonoBehaviour
 {
+    private Vector3 originalPosition; // To store the original position of the showerhead
     private Vector3 offset;
+    private bool isDragging = false;
 
-    public Sprite normalShowerheadSprite; // Reference to normal showerhead sprite
-    public Sprite waterSprayingShowerheadSprite; // Reference to water spraying showerhead sprite
+    public Sprite normalShowerheadSprite; // Normal showerhead sprite
+    public Sprite waterSprayingShowerheadSprite; // Water spraying showerhead sprite
     private SpriteRenderer showerheadRenderer;
 
-    public Tamagotchi tamagotchiScript; // Reference to the Tamagotchi script to interact with foam
-    private bool isWaterSpraying = false; // Track if the showerhead is spraying water
-
-    private Vector3 originalPosition; // Store original position to reset
+    public Tamagotchi tamagotchiScript; // Reference to Tamagotchi to interact with foam
+    private bool isWaterSpraying = false;
 
     void Start()
     {
-        showerheadRenderer = GetComponent<SpriteRenderer>();
-        originalPosition = transform.position;
+        originalPosition = transform.position; // Store the initial position of the showerhead
+        showerheadRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
+        SwitchToNormalShowerhead(); // Ensure it's using the normal sprite by default
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    void OnMouseDown()
     {
-        // Change to water-spraying sprite when picked up
-        SwitchToWaterSpraying();
-        offset = transform.position - GetMouseWorldPos();
+        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        isDragging = true;
+        SwitchToWaterSpraying(); // Switch to water-spraying when the showerhead is picked up
     }
 
-    public void OnDrag(PointerEventData eventData)
+    void OnMouseDrag()
     {
-        transform.position = GetMouseWorldPos() + offset;
+        if (isDragging)
+        {
+            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            newPosition.z = 0;  // Keep it in 2D space
+            transform.position = newPosition;
+        }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    void OnMouseUp()
     {
-        // Reset position and sprite
+        isDragging = false;
+
+        // Snap back to the original position when released
         transform.position = originalPosition;
-        SwitchToNormalShowerhead();
 
-        // Check if showerhead is over foam (clean foam)
+        // Optionally, check if the showerhead is over foam and clean it
         Collider2D foamCollider = tamagotchiScript.GetFoamCollider();
         if (foamCollider != null && foamCollider.IsTouching(GetComponent<Collider2D>()))
         {
             CleanFoam();
         }
+
+        SwitchToNormalShowerhead(); // Reset the sprite to normal after releasing
     }
 
-    Vector3 GetMouseWorldPos()
-    {
-        Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePoint.z = 0;
-        return mousePoint;
-    }
-
+    // Switch to water-spraying mode (when the showerhead is picked up)
     public void SwitchToWaterSpraying()
     {
         isWaterSpraying = true;
-        showerheadRenderer.sprite = waterSprayingShowerheadSprite;
+        showerheadRenderer.sprite = waterSprayingShowerheadSprite; // Switch sprite to water-spraying
     }
 
+    // Switch back to normal showerhead mode (when released)
     public void SwitchToNormalShowerhead()
     {
         isWaterSpraying = false;
-        showerheadRenderer.sprite = normalShowerheadSprite;
+        showerheadRenderer.sprite = normalShowerheadSprite; // Switch back to normal showerhead
     }
 
     private void CleanFoam()
     {
         if (isWaterSpraying)
         {
-            tamagotchiScript.CleanFoamWithShower(gameObject);
+            tamagotchiScript.CleanFoamWithShower(gameObject); // Notify Tamagotchi to clean foam
         }
     }
 }

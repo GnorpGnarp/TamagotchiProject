@@ -1,60 +1,55 @@
 using UnityEngine;
-using UnityEngine.EventSystems;  // Required for UI events
 
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DraggableItem : MonoBehaviour
 {
-    private Vector3 originalPosition; // To store the original position of the soap
-    private RectTransform rectTransform; // To access the RectTransform component for UI elements
-    private Canvas parentCanvas; // Reference to the parent canvas to calculate relative position
-    private bool isDragging = false; // To track whether the item is being dragged
+    private Vector3 originalPosition;
+    private Vector3 offset;
+    private bool isDragging = false;
 
-    public Tamagotchi tamagotchiScript; // Reference to the Tamagotchi script to interact with
-    public GameObject foamPrefab; // Reference to the foam prefab
-    private GameObject foamInstance; // Store foam instance
+    public Tamagotchi tamagotchiScript; // Reference to Tamagotchi to interact with
+    public GameObject foamPrefab; // Reference to foam prefab
+    private GameObject foamInstance; // Foam instance holder
 
-    private void Start()
+    void Start()
     {
-        rectTransform = GetComponent<RectTransform>(); // Get RectTransform for UI elements
-        originalPosition = rectTransform.position; // Store the initial position of the soap
-        parentCanvas = GetComponentInParent<Canvas>(); // Get the parent canvas
+        originalPosition = transform.position; // Save the original position of the soap
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    void OnMouseDown()
     {
         Debug.Log("Soap clicked");
         isDragging = true;
+        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    void OnMouseDrag()
     {
         if (isDragging)
         {
-            Debug.Log("Dragging soap");
-            // Update the position of the object based on mouse position
-            Vector2 localPointerPosition = eventData.position / parentCanvas.scaleFactor; // Adjust for canvas scale
-            rectTransform.position = localPointerPosition;
+            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            newPosition.z = 0;  // Ensure the soap stays in 2D space
+            transform.position = newPosition;
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    void OnMouseUp()
     {
         Debug.Log("Soap released");
         isDragging = false;
 
-        // Check if the soap is over the Tamagotchi (use colliders to detect interaction)
+        // Check if the soap is over the Tamagotchi
         if (IsOverTamagotchi())
         {
             ApplySoapToTamagotchi();
         }
 
-        // Snap back to original position
-        rectTransform.position = originalPosition;
+        // Optionally, snap back to original position
+        transform.position = originalPosition;
     }
 
     private bool IsOverTamagotchi()
     {
-        // Check if the soap collider is touching the Tamagotchi collider
-        Collider2D tamagotchiCollider = tamagotchiScript.GetComponent<Collider2D>(); // Assuming Tamagotchi has a collider
+        Collider2D tamagotchiCollider = tamagotchiScript.GetComponent<Collider2D>();
         Collider2D soapCollider = GetComponent<Collider2D>();
 
         return soapCollider.IsTouching(tamagotchiCollider);
@@ -62,12 +57,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void ApplySoapToTamagotchi()
     {
-        // Apply soap by spawning foam
         if (foamInstance == null)
         {
-            foamInstance = Instantiate(foamPrefab, rectTransform.position, Quaternion.identity);
-            foamInstance.SetActive(true);  // Show foam when soap is applied
-            tamagotchiScript.ApplySoap(rectTransform.position); // Notify Tamagotchi to apply soap and spawn foam
+            foamInstance = Instantiate(foamPrefab, transform.position, Quaternion.identity);
+            foamInstance.SetActive(true);  // Make foam visible
+            tamagotchiScript.ApplySoap(transform.position); // Notify Tamagotchi
         }
     }
 }

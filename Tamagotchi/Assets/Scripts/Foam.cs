@@ -20,8 +20,9 @@ public class Foam : MonoBehaviour
     {
         if (other.CompareTag("Shower"))
         {
-            // Optionally trigger cleaning when shower interacts with foam.
+            // Trigger foam cleaning if it enters the shower's area
             CleanFoam();
         }
     }
+
 }

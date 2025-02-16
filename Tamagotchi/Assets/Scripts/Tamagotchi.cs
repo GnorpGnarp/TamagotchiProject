@@ -84,12 +84,12 @@ public class Tamagotchi : MonoBehaviour
     {
         if (!isSoapApplied)
         {
-            foamInstance = Instantiate(foamPrefab, spawnPosition, Quaternion.identity);
-            foamInstance.SetActive(true);  // Make foam visible
-            isSoapApplied = true;
+            foamInstance = Instantiate(foamPrefab, spawnPosition, Quaternion.identity); // Spawn foam at soap's position
+            foamInstance.SetActive(true);  // Activate foam
+            foamInstance.transform.SetParent(transform);  // Parent foam to Tamagotchi (so it follows its movement)
+            isSoapApplied = true;  // Track that soap has been applied
         }
     }
-
 
     // Method to clean foam with showerhead (check for interaction)
     public Collider2D GetFoamCollider()
@@ -104,8 +104,8 @@ public class Tamagotchi : MonoBehaviour
         if (foamInstance != null && showerhead != null && foamInstance.activeSelf)
         {
             foamInstance.SetActive(false); // Deactivate foam (clean it away)
-            cleanliness = 100f; // Reset cleanliness
             isSoapApplied = false; // Reset soap applied state
+            cleanliness = 100f; // Reset cleanliness
             UpdateLoveMeter();  // Optionally, update the cleanliness meter or other logic
         }
     }

@@ -68,11 +68,20 @@ public class DraggableShower : MonoBehaviour
         showerheadRenderer.sprite = normalShowerheadSprite; // Switch back to normal showerhead
     }
 
-    private void CleanFoam()
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Foam")) // Make sure your foam has the "Foam" tag
+        {
+            CleanFoam();
+        }
+    }
+
+    void CleanFoam()
     {
         if (isWaterSpraying)
         {
             tamagotchiScript.CleanFoamWithShower(gameObject); // Notify Tamagotchi to clean foam
         }
     }
+
 }

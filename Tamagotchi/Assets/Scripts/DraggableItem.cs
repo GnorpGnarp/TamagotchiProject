@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class DraggableItem : MonoBehaviour
 {
-    private Vector3 originalPosition;
-    private Vector3 offset;
-    private bool isDragging = false;
+    private Vector3 originalPosition; // To store the original position of the soap
+    private Vector3 offset; // The offset between the mouse position and the object
+    private bool isDragging = false; // To track whether the item is being dragged
 
-    public Tamagotchi tamagotchiScript; // Reference to Tamagotchi to interact with
-    public GameObject foamPrefab; // Reference to foam prefab
-    private GameObject foamInstance; // Foam instance holder
+    public Tamagotchi tamagotchiScript; // Reference to the Tamagotchi script
+    public GameObject foamPrefab; // Reference to the foam prefab
+    private GameObject foamInstance; // Store foam instance
 
     void Start()
     {
-        originalPosition = transform.position; // Save the original position of the soap
+        originalPosition = transform.position; // Store the initial position of the soap
     }
 
     void OnMouseDown()
     {
-        Debug.Log("Soap clicked");
+        // Start dragging
         isDragging = true;
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
@@ -26,42 +26,39 @@ public class DraggableItem : MonoBehaviour
     {
         if (isDragging)
         {
+            // Update the position of the object based on the mouse position
             Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-            newPosition.z = 0;  // Ensure the soap stays in 2D space
+            newPosition.z = 0; // Ensure it's in 2D space
             transform.position = newPosition;
         }
     }
 
     void OnMouseUp()
     {
-        Debug.Log("Soap released");
+        // Stop dragging and check if soap is over Tamagotchi
         isDragging = false;
+        transform.position = originalPosition; // Snap back to the original position
+    }
 
-        // Check if the soap is over the Tamagotchi
-        if (IsOverTamagotchi())
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Check if the soap collides with the Tamagotchi's collider
+        if (other.CompareTag("Tamagotchi")) // Make sure your Tamagotchi has the "Tamagotchi" tag
         {
             ApplySoapToTamagotchi();
         }
-
-        // Optionally, snap back to original position
-        transform.position = originalPosition;
     }
 
-    private bool IsOverTamagotchi()
+    void ApplySoapToTamagotchi()
     {
-        Collider2D tamagotchiCollider = tamagotchiScript.GetComponent<Collider2D>();
-        Collider2D soapCollider = GetComponent<Collider2D>();
-
-        return soapCollider.IsTouching(tamagotchiCollider);
-    }
-
-    private void ApplySoapToTamagotchi()
-    {
+        // Spawn foam when soap is applied to the Tamagotchi
         if (foamInstance == null)
         {
-            foamInstance = Instantiate(foamPrefab, transform.position, Quaternion.identity);
-            foamInstance.SetActive(true);  // Make foam visible
-            tamagotchiScript.ApplySoap(transform.position); // Notify Tamagotchi
+            Vector3 spawnPosition = tamagotchiScript.transform.position; // Get the Tamagotchi's position
+            foamInstance = Instantiate(foamPrefab, spawnPosition, Quaternion.identity);
+            foamInstance.SetActive(true); // Activate foam instance
+            tamagotchiScript.ApplySoap(spawnPosition); // Notify Tamagotchi to apply soap
         }
     }
+
 }

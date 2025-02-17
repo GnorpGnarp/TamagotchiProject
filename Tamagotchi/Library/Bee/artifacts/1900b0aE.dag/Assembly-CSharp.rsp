@@ -365,6 +365,7 @@
 "Assets/Scripts/FoodSpawner.cs"
 "Assets/Scripts/Minigame1/GameManager.cs"
 "Assets/Scripts/Minigame1/Obstacle.cs"
+"Assets/Scripts/Minigame1/ObstacleMovement.cs"
 "Assets/Scripts/Minigame1/PlayerMovement.cs"
 "Assets/Scripts/Minigame1/Spawner.cs"
 "Assets/Scripts/Tamagotchi.cs"

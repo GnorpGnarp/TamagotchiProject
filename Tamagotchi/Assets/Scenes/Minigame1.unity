@@ -188,17 +188,13 @@ MonoBehaviour:
   initialSpawnRate: 2
   spawnPoints:
   - {fileID: 869902139}
-  - {fileID: 1407473108}
   - {fileID: 1821158340}
   - {fileID: 1487299821}
-  - {fileID: 1098130737}
   - {fileID: 724737206}
-  - {fileID: 1676563020}
   - {fileID: 1797086803}
-  - {fileID: 1905297337}
   - {fileID: 125224525}
-  - {fileID: 1462495761}
   ySpawnLimit: {fileID: 412338766}
+  initialObstacleSpeed: 1
 --- !u!4 &131988486
 Transform:
   m_ObjectHideFlags: 0
@@ -355,6 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ea991d60c0bde4fbf987ea4a372488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!61 &682682659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1111,6 +1108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: coin
       objectReference: {fileID: 0}
+    - target: {fileID: 3589457020466837129, guid: 27841900f4bfe5f46a682eebb886e01f, type: 3}
+      propertyPath: m_TagString
+      value: coin
+      objectReference: {fileID: 0}
     - target: {fileID: 7115987997357657038, guid: 27841900f4bfe5f46a682eebb886e01f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.92
@@ -1171,6 +1172,10 @@ PrefabInstance:
     - target: {fileID: 6530202144047589004, guid: cf7265bb1f6fc4242a83d9a6701626f5, type: 3}
       propertyPath: m_Name
       value: skiitreestump
+      objectReference: {fileID: 0}
+    - target: {fileID: 6530202144047589004, guid: cf7265bb1f6fc4242a83d9a6701626f5, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 6817066747876637631, guid: cf7265bb1f6fc4242a83d9a6701626f5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1272,6 +1277,10 @@ PrefabInstance:
     - target: {fileID: 6699036811521294738, guid: f5557854b01a7bf40a3683ec77eb42ff, type: 3}
       propertyPath: m_Name
       value: skiitreec
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699036811521294738, guid: f5557854b01a7bf40a3683ec77eb42ff, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

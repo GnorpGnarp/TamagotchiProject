@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 376
     height: 722.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -507,7 +507,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts/Minigame1
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -515,16 +515,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts/Minigame1
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\semestr1gryunity\Tamagotchi\TamagotchiProject\Tamagotchi
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: e05a0000
-    m_LastClickedID: 23264
-    m_ExpandedIDs: 00000000c65a0000e45a000000ca9a3bffffff7f
+    m_SelectedIDs: 365b0000
+    m_LastClickedID: 23350
+    m_ExpandedIDs: 00000000ce5a0000e25a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -552,7 +552,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c65a0000
+    m_ExpandedIDs: 00000000ce5a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -692,8 +692,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fa590000
-      m_LastClickedID: 23034
+      m_SelectedIDs: e8090000
+      m_LastClickedID: 0
       m_ExpandedIDs: 2cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -1087,9 +1087,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -7.0567274, y: 0.8517802, z: 0.06813874}
+    m_Target: {x: -0.08563076, y: 0.033488452, z: -0.48596978}
     speed: 2
-    m_Value: {x: -7.0567274, y: 0.8517802, z: 0.06813874}
+    m_Value: {x: -0.08563076, y: 0.033488452, z: -0.48596978}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1135,13 +1135,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.026395453, y: -0.013194979, z: 0.00034821557, w: 0.99959415}
+    m_Target: {x: 0.05154963, y: 0.033550244, z: -0.0017334063, w: 0.998137}
     speed: 2
-    m_Value: {x: 0.026394669, y: -0.013194587, z: 0.00034820524, w: 0.99956447}
+    m_Value: {x: 0.051547993, y: 0.03354918, z: -0.0017333514, w: 0.99810535}
   m_Size:
-    m_Target: 6.9065723
+    m_Target: 7.568354
     speed: 2
-    m_Value: 6.9065723
+    m_Value: 7.568354
   m_Ortho:
     m_Target: 1
     speed: 2

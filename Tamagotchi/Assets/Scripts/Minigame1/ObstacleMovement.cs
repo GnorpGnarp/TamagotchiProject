@@ -12,8 +12,9 @@ public class ObstacleMovement : MonoBehaviour
         // Check if the obstacle has gone off-screen (Y > 7)
         if (transform.position.y > 7f)
         {
-            // Destroy the obstacle if it goes out of frame
-            Destroy(gameObject);
+            // Return obstacle to the pool (provide the obstacle type)
+            ObjectPooler objectPooler = FindObjectOfType<ObjectPooler>();
+            objectPooler.ReturnObstacleToPool(gameObject, 1); // Pass the obstacle type (1 or 2)
         }
     }
 
@@ -22,3 +23,4 @@ public class ObstacleMovement : MonoBehaviour
         moveSpeed = speed;
     }
 }
+

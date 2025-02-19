@@ -1,76 +1,47 @@
-using System.Collections;
+// Spawner.cs
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject obstaclePrefab1; // First obstacle
-    public GameObject obstaclePrefab2; // Second obstacle
-    public GameObject coinPrefab;
-    public float initialSpawnRate = 2f; // Time between spawns at the start
-    private float spawnRate;
-    private float timePassed;
-    private bool gameIsOver = false;
-
-    public Transform[] spawnPoints; // Array of spawn points for random selection
-    public Transform ySpawnLimit; // Reference to an empty object to limit Y position
-
-    public float initialObstacleSpeed = 1f; // Speed at which obstacles move up
-    private float obstacleSpeed; // The speed at which obstacles move, which increases over time
-
-    void Start()
-    {
-        spawnRate = initialSpawnRate;
-        obstacleSpeed = initialObstacleSpeed;
-        StartCoroutine(SpawnObstacleAndCoin());
-    }
+    public ObjectPooler objectPooler; // Reference to the Object Pooler
+    public float spawnRate = 2f; // Time between obstacle spawns
+    private float spawnTimer = 0f;
 
     void Update()
     {
-        if (!gameIsOver)
+        spawnTimer += Time.deltaTime;
+
+        if (spawnTimer >= spawnRate)
         {
-            // Gradually decrease spawnRate and increase obstacle speed over time
-            timePassed += Time.deltaTime;
-            if (timePassed >= 30f) // Every 30 seconds, make things faster
-            {
-                spawnRate -= 0.1f; // Decrease spawn time by 0.1 seconds
-                obstacleSpeed += 0.1f; // Increase the obstacle speed
-                timePassed = 0f;   // Reset the time counter
-            }
+            SpawnObstacle(); // Only spawn obstacles
+            spawnTimer = 0f; // Reset the timer
         }
     }
 
-    // Coroutine for spawning obstacles and coins
-    private IEnumerator SpawnObstacleAndCoin()
+    void SpawnObstacle()
     {
-        while (!gameIsOver)
+        // Choose the obstacle type (for example, let's randomly choose between type 1 and type 2)
+        int obstacleType = Random.Range(0, 2) == 0 ? 1 : 2;
+
+        // Get an obstacle from the pool (pass the obstacle type)
+        GameObject obstacle = objectPooler.GetObstacleFromPool(obstacleType);
+
+        // Set the spawn position (randomized for demo purposes)
+        Vector3 spawnPosition = new Vector3(Random.Range(-5f, 5f), 7f, 0);
+        obstacle.transform.position = spawnPosition;
+
+        // Set the speed for the obstacle
+        ObstacleMovement obstacleMovement = obstacle.GetComponent<ObstacleMovement>();
+        if (obstacleMovement != null)
         {
-            // Randomly select a spawn point for X-axis (left or right)
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-            // Randomly select between two obstacle types
-            GameObject selectedObstacle = Random.Range(0f, 1f) > 0.5f ? obstaclePrefab1 : obstaclePrefab2;
-
-            // Set the Y position to the position of the ySpawnLimit (the empty object)
-            Vector3 spawnPosition = new Vector3(spawnPoint.position.x, ySpawnLimit.position.y, spawnPoint.position.z);
-
-            // Instantiate selected obstacle and coin at the new position
-            GameObject obstacle = Instantiate(selectedObstacle, spawnPosition, Quaternion.identity);
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
-
-            // Set the obstacle's movement speed
-            ObstacleMovement obstacleMovement = obstacle.GetComponent<ObstacleMovement>();
-            if (obstacleMovement != null)
-            {
-                obstacleMovement.SetSpeed(obstacleSpeed);
-            }
-
-            // Wait before spawning next set of objects
-            yield return new WaitForSeconds(spawnRate);
+            obstacleMovement.SetSpeed(1f); // Example speed
         }
     }
 
+    // Call this function to stop obstacle spawning when the game is over
     public void StopSpawning()
     {
-        gameIsOver = true;
+        // You can stop obstacle spawning here if needed
+        spawnRate = 0f; // Set spawn rate to 0 to prevent further spawns
     }
 }

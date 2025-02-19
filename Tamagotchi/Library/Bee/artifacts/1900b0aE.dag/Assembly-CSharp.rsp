@@ -366,6 +366,7 @@
 "Assets/Scripts/Minigame1/CoinMovement.cs"
 "Assets/Scripts/Minigame1/CoinSpawner.cs"
 "Assets/Scripts/Minigame1/GameManager.cs"
+"Assets/Scripts/Minigame1/GameOverUIManager.cs"
 "Assets/Scripts/Minigame1/ObjectPooler.cs"
 "Assets/Scripts/Minigame1/Obstacle.cs"
 "Assets/Scripts/Minigame1/ObstacleMovement.cs"

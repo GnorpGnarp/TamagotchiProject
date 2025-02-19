@@ -9,16 +9,17 @@ public class CoinManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton pattern to ensure only one instance of CoinManager exists
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject); // Keeps CoinManager across scenes
         }
         else
         {
             Destroy(gameObject); // Destroy duplicate instances
         }
     }
+
 
     // This method will run when the scene starts, after all objects are initialized
     private void Start()

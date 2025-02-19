@@ -25,4 +25,33 @@ public class PlayerMovement : MonoBehaviour
         // Apply the clamped position to the player
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            // Trigger Game Over
+            GameOver();
+        }
+        else if (collision.gameObject.CompareTag("Coin"))
+        {
+            // Add coins to the player's balance
+            CoinManager.Instance.AddCoins(1);  // Add 1 coin for each collected coin
+            Destroy(collision.gameObject);  // Destroy the coin
+        }
+    }
+
+
+    private void GameOver()
+    {
+        // Find the GameOverUIManager or set a reference to it beforehand
+        GameOverUIManager gameOverUI = FindObjectOfType<GameOverUIManager>();
+
+        // Call the method to show the canvas and pass the number of collected coins
+        gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
+
+        // Freeze the game
+        Time.timeScale = 0f;
+    }
+
+
 }

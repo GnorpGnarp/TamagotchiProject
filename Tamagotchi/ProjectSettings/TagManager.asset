@@ -9,6 +9,7 @@ TagManager:
   - Foam
   - Obstacle
   - coin
+  - Coin
   layers:
   - Default
   - TransparentFX

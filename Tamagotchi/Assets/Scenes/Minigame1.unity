@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPooler: {fileID: 1133258658}
-  spawnRate: 2
+  spawnRate: 3
   ySpawnLimit: {fileID: 412338766}
 --- !u!4 &628919287
 Transform:

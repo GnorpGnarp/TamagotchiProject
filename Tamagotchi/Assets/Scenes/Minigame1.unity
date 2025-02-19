@@ -317,7 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPooler: {fileID: 1133258658}
-  spawnRate: 1
+  spawnRate: 2.5
+  ySpawnLimit: {fileID: 412338766}
 --- !u!4 &131988486
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
     public ObjectPooler objectPooler; // Reference to the Object Pooler
     public float spawnRate = 2f; // Time between obstacle spawns
     private float spawnTimer = 0f;
+    public Transform ySpawnLimit;  
 
     void Update()
     {
@@ -20,23 +21,24 @@ public class Spawner : MonoBehaviour
 
     void SpawnObstacle()
     {
-        // Choose the obstacle type (for example, let's randomly choose between type 1 and type 2)
+        // Choose the obstacle type (randomly choose between type 1 and type 2)
         int obstacleType = Random.Range(0, 2) == 0 ? 1 : 2;
 
         // Get an obstacle from the pool (pass the obstacle type)
         GameObject obstacle = objectPooler.GetObstacleFromPool(obstacleType);
 
-        // Set the spawn position (randomized for demo purposes)
-        Vector3 spawnPosition = new Vector3(Random.Range(-5f, 5f), 7f, 0);
+        // Set the spawn position using ySpawnLimit (same as coin spawn logic)
+        Vector3 spawnPosition = new Vector3(Random.Range(-5f, 5f), ySpawnLimit.position.y, 0);
         obstacle.transform.position = spawnPosition;
 
         // Set the speed for the obstacle
         ObstacleMovement obstacleMovement = obstacle.GetComponent<ObstacleMovement>();
         if (obstacleMovement != null)
         {
-            obstacleMovement.SetSpeed(1f); // Example speed
+            obstacleMovement.SetSpeed(1f); // Adjust the speed as needed
         }
     }
+
 
     // Call this function to stop obstacle spawning when the game is over
     public void StopSpawning()

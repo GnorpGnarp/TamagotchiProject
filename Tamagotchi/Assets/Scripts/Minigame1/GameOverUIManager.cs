@@ -18,6 +18,7 @@ public class GameOverUIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Debug.Log("GameOverUIManager instance initialized.");
         }
         else
         {
@@ -28,6 +29,20 @@ public class GameOverUIManager : MonoBehaviour
         resetButton.onClick.AddListener(ResetLevel);
         returnButton.onClick.AddListener(ReturnToMainRoom);
     }
+    public void GameOver()
+    {
+        GameOverUIManager gameOverUI = FindObjectOfType<GameOverUIManager>();
+        if (gameOverUI != null)
+        {
+            gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
+            Time.timeScale = 0f;  // Freeze the game
+        }
+        else
+        {
+            Debug.LogError("GameOverUIManager not found! Ensure it exists in the scene.");
+        }
+    }
+
 
     // Show the Game Over canvas and display the coins collected
     public void ShowGameOverCanvas(int playerCoins)

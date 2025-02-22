@@ -10,7 +10,7 @@ public class PlayerMovement2 : MonoBehaviour
     public GameObject beamPrefab;       // The beam GameObject
     public float beamRange = 5f;        // How far the beam can reach downwards
     public LayerMask pickUpLayer;       // Layer to identify pickable objects
-
+     public float beamOffsetY = -0.5f; // Adjust this in the inspector
     private void Update()
     {
         // Handle player movement
@@ -38,10 +38,11 @@ public class PlayerMovement2 : MonoBehaviour
         transform.position = newPosition;
     }
 
+   
+
     private void ShootBeam()
     {
-        // Adjust the spawn position with an offset
-        Vector3 beamPosition = transform.position + new Vector3(0f, -0.5f, 0f); // Adjust the Y offset here
+        Vector3 beamPosition = transform.position + new Vector3(0f, beamOffsetY, 0f);
 
         // Instantiate the beam at the adjusted position
         GameObject beam = Instantiate(beamPrefab, beamPosition, Quaternion.identity);
@@ -60,5 +61,6 @@ public class PlayerMovement2 : MonoBehaviour
         // Destroy the beam after 1 second
         Destroy(beam, 1f);
     }
+
 
 }

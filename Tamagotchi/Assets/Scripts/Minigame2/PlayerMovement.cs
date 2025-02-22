@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement2 : MonoBehaviour
@@ -10,14 +8,31 @@ public class PlayerMovement2 : MonoBehaviour
     public GameObject beamPrefab;       // The beam GameObject
     public float beamRange = 5f;        // How far the beam can reach downwards
     public LayerMask pickUpLayer;       // Layer to identify pickable objects
-     public float beamOffsetY = -0.5f; // Adjust this in the inspector
+
+    private bool canMove = true;        // Flag to check if player can move
+    private float beamCooldown = 1f;    // Time in seconds to disable movement after shooting the beam
+    private float cooldownTimer = 0f;   // Timer to track cooldown
+
     private void Update()
     {
-        // Handle player movement
-        MovePlayer();
+        // If cooldown timer is active, decrease it
+        if (cooldownTimer > 0f)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0f)
+            {
+                canMove = true; // Re-enable movement after cooldown
+            }
+        }
 
-        // Shoot the beam when space or enter is pressed
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
+        // Handle player movement if allowed
+        if (canMove)
+        {
+            MovePlayer();
+        }
+
+        // Shoot the beam when space or enter is pressed, and check if movement is allowed
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) && canMove)
         {
             ShootBeam();
         }
@@ -38,11 +53,14 @@ public class PlayerMovement2 : MonoBehaviour
         transform.position = newPosition;
     }
 
-   
-
     private void ShootBeam()
     {
-        Vector3 beamPosition = transform.position + new Vector3(0f, beamOffsetY, 0f);
+        // Disable movement temporarily
+        canMove = false;
+        cooldownTimer = beamCooldown;  // Start the cooldown timer
+
+        // Adjust the spawn position with an offset
+        Vector3 beamPosition = transform.position + new Vector3(0f, -4.2f, 0f); // Adjust the Y offset here
 
         // Instantiate the beam at the adjusted position
         GameObject beam = Instantiate(beamPrefab, beamPosition, Quaternion.identity);
@@ -61,6 +79,4 @@ public class PlayerMovement2 : MonoBehaviour
         // Destroy the beam after 1 second
         Destroy(beam, 1f);
     }
-
-
 }

@@ -373,6 +373,8 @@
 "Assets/Scripts/Minigame1/PlayerController.cs"
 "Assets/Scripts/Minigame1/PlayerMovement.cs"
 "Assets/Scripts/Minigame1/Spawner.cs"
+"Assets/Scripts/Minigame2/Cow.cs"
+"Assets/Scripts/Minigame2/CowSpawner.cs"
 "Assets/Scripts/Minigame2/PlayerMovement.cs"
 "Assets/Scripts/MinigameSceneLoader.cs"
 "Assets/Scripts/Tamagotchi.cs"

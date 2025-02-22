@@ -65,18 +65,25 @@ public class PlayerMovement2 : MonoBehaviour
         // Instantiate the beam at the adjusted position
         GameObject beam = Instantiate(beamPrefab, beamPosition, Quaternion.identity);
 
-        // Raycast downwards from the player's position
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, beamRange, pickUpLayer);
+        // Raycast downwards from the player's position to detect cows
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, beamRange, pickUpLayer);
 
-        // If the beam hits an object, pick it up
-        if (hit.collider != null)
+        foreach (RaycastHit2D hit in hits)
         {
-            Debug.Log("Picked up: " + hit.collider.name);
-            // Your pickup logic here
-            Destroy(hit.collider.gameObject); // Example: destroy the object
+            // If the hit object is a cow (we check the layer here)
+            if (hit.collider != null && hit.collider.CompareTag("Cow"))
+            {
+                // Start the sucking effect on the cow
+                Cow cow = hit.collider.GetComponent<Cow>();
+                if (cow != null)
+                {
+                    cow.StartBeingSucked();
+                }
+            }
         }
 
         // Destroy the beam after 1 second
         Destroy(beam, 1f);
     }
+
 }

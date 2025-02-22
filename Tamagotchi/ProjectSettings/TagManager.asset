@@ -11,6 +11,7 @@ TagManager:
   - coin
   - Coin
   - Beam
+  - Cow
   layers:
   - Default
   - TransparentFX

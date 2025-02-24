@@ -1,7 +1,7 @@
-using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;  // To access the Button component
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverUIManager : MonoBehaviour
 {
@@ -28,33 +28,17 @@ public class GameOverUIManager : MonoBehaviour
         // Add listeners for buttons
         resetButton.onClick.AddListener(ResetLevel);
         returnButton.onClick.AddListener(ReturnToMainRoom);
-    }
-    public void GameOver()
-    {
-        GameOverUIManager gameOverUI = FindObjectOfType<GameOverUIManager>();
-        if (gameOverUI != null)
-        {
-            gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
-            Time.timeScale = 0f;  // Freeze the game
-        }
-        else
-        {
-            Debug.LogError("GameOverUIManager not found! Ensure it exists in the scene.");
-        }
-    }
 
+        // Make sure the canvas is inactive at the start
+        gameOverCanvas.SetActive(false);
+    }
 
     // Show the Game Over canvas and display the coins collected
     public void ShowGameOverCanvas(int playerCoins)
     {
+        // Set canvas active when game is over
         gameOverCanvas.SetActive(true);
         coinText.text = "Coins Collected: " + playerCoins;
-    }
-
-    // Hide the Game Over canvas (for example, after restarting or returning to the main menu)
-    public void HideGameOverCanvas()
-    {
-        gameOverCanvas.SetActive(false);
     }
 
     // Button action: Reset the level and play again

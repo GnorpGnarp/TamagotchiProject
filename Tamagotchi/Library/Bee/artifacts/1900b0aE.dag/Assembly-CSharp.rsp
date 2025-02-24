@@ -377,6 +377,7 @@
 "Assets/Scripts/Minigame2/Cow.cs"
 "Assets/Scripts/Minigame2/CowSpawner.cs"
 "Assets/Scripts/Minigame2/PlayerMovement.cs"
+"Assets/Scripts/Minigame2/TimeLimit.cs"
 "Assets/Scripts/MinigameSceneLoader.cs"
 "Assets/Scripts/Tamagotchi.cs"
 "Assets/Scripts/TamagotchiMovement.cs"

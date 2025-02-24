@@ -43,15 +43,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void GameOver()
     {
-        // Find the GameOverUIManager or set a reference to it beforehand
+        // Try to find the GameOverUIManager
         GameOverUIManager gameOverUI = FindObjectOfType<GameOverUIManager>();
 
-        // Call the method to show the canvas and pass the number of collected coins
-        gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
-
-        // Freeze the game
-        Time.timeScale = 0f;
+        if (gameOverUI != null)
+        {
+            // Show Game Over canvas and update coin count
+            gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
+            Time.timeScale = 0f;  // Freeze the game
+        }
+        else
+        {
+            // Log an error if GameOverUIManager is not found
+            Debug.LogError("GameOverUIManager not found! Ensure it exists in the scene.");
+        }
     }
-
 
 }

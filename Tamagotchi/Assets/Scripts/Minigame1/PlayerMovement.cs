@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f; // Speed of the player movement
 
     private Vector2 moveDirection; // Movement direction
+    public GameOverUIManager gameOverUIManager; // Assign this in the Inspector
 
     void Update()
     {
@@ -43,19 +44,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void GameOver()
     {
-        // Try to find the GameOverUIManager
-        GameOverUIManager gameOverUI = FindObjectOfType<GameOverUIManager>();
-
-        if (gameOverUI != null)
+        if (GameOverUIManager.Instance != null)
         {
-            // Show Game Over canvas and update coin count
-            gameOverUI.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
-            Time.timeScale = 0f;  // Freeze the game
+            GameOverUIManager.Instance.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
+            Time.timeScale = 0f;
         }
         else
         {
-            // Log an error if GameOverUIManager is not found
-            Debug.LogError("GameOverUIManager not found! Ensure it exists in the scene.");
+            Debug.LogError("GameOverUIManager.Instance is null!");
         }
     }
 

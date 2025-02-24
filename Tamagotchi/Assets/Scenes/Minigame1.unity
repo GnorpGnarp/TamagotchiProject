@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 594553241}
   - component: {fileID: 594553240}
   - component: {fileID: 594553239}
+  - component: {fileID: 594553243}
   m_Layer: 5
   m_Name: GameOverCanvas
   m_TagString: Untagged
@@ -694,6 +695,18 @@ RectTransform:
   m_AnchoredPosition: {x: 425, y: 227}
   m_SizeDelta: {x: 850, y: 454}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &594553243
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594553238}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &628919285
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  gameOverUIManager: {fileID: 1619696512}
 --- !u!61 &682682659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1739,10 +1753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16429fb8e077f244b899eb6d850124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverCanvas: {fileID: 594553238}
+  gameOverCanvasGroup: {fileID: 594553243}
   coinText: {fileID: 1753238413}
-  resetButton: {fileID: 1295735402}
-  returnButton: {fileID: 2055409780}
 --- !u!1 &1676563019
 GameObject:
   m_ObjectHideFlags: 0

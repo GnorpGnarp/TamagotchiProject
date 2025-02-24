@@ -2,30 +2,37 @@ using UnityEngine;
 
 public class Cow : MonoBehaviour
 {
-    public float shrinkSpeed = 0.1f;  // Speed at which the cow shrinks
-    public float moveSpeed = 1f;      // Speed at which the cow moves upwards
-    private bool isBeingSucked = false; // Check if the cow is being sucked into the beam
+    public float shrinkSpeed = 2f;  // Faster shrinking
+    public float moveSpeed = 2f;    // Faster movement upwards
+    private bool isBeingSucked = false;
 
     private void Update()
     {
-        // If the cow is being sucked into the beam, shrink and move upwards
+        // Use T to force sucking effect
+        if (Input.GetKeyDown(KeyCode.T))  // Press T to test sucking
+        {
+            StartBeingSucked();
+        }
+
+        // If the cow is being sucked, perform shrinking and moving upwards
         if (isBeingSucked)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, shrinkSpeed * Time.deltaTime);
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z), moveSpeed * Time.deltaTime);
+            transform.position += Vector3.up * moveSpeed * Time.deltaTime;
 
-            // If the cow is small enough, destroy it (it has been picked up)
-            if (transform.localScale.x <= 0.05f) // If the cow is nearly invisible
+            // If it's fully shrunk, destroy the cow and give a coin
+            if (transform.localScale.x <= 0.05f) // Almost gone
             {
-                Destroy(gameObject);
-                CoinManager.Instance.AddCoins(1); // Add 1 coin for each cow picked up
+                CoinManager.Instance.AddCoins(1); // Give a coin
+                Destroy(gameObject);  // Destroy the cow
             }
         }
     }
 
-    // Call this method to start the sucking effect
+    // Start the sucking process
     public void StartBeingSucked()
     {
+        Debug.Log(gameObject.name + " is being sucked up!");  // Debug log to confirm it's called
         isBeingSucked = true;
     }
 }

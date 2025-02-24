@@ -491,10 +491,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   beamPrefab: {fileID: 5526232616888969979, guid: 5abc6dd85682e6642bcc015c71a9e766, type: 3}
-  beamRange: 5
-  pickUpLayer:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &2141117753
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,13 +547,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816540646347903952, guid: 5abc6dd85682e6642bcc015c71a9e766, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 5526232616888969979, guid: 5abc6dd85682e6642bcc015c71a9e766, type: 3}
       propertyPath: m_Name
       value: ufobeam
-      objectReference: {fileID: 0}
-    - target: {fileID: 5526232616888969979, guid: 5abc6dd85682e6642bcc015c71a9e766, type: 3}
-      propertyPath: m_TagString
-      value: Beam
       objectReference: {fileID: 0}
     - target: {fileID: 7624563678935739692, guid: 5abc6dd85682e6642bcc015c71a9e766, type: 3}
       propertyPath: m_LocalPosition.x
@@ -655,10 +651,6 @@ PrefabInstance:
     - target: {fileID: 3423861978095547849, guid: afab8c7b510395e49950d538e71457d1, type: 3}
       propertyPath: m_Name
       value: krowa
-      objectReference: {fileID: 0}
-    - target: {fileID: 3423861978095547849, guid: afab8c7b510395e49950d538e71457d1, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

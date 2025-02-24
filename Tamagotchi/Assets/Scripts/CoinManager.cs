@@ -35,6 +35,7 @@ public class CoinManager : MonoBehaviour
     public void AddCoins(int amount)
     {
         playerCoins += amount;
+        Debug.Log("Coins added! Total: " + playerCoins);
         UIManager.Instance.UpdateCoinDisplay(playerCoins);  // Update the UI whenever coins are added
     }
 

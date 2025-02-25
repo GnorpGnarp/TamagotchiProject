@@ -1,12 +1,13 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
+using TMPro; // Import TextMeshPro namespace
 
 public class GameOverUIManager : MonoBehaviour
 {
-    public static GameOverUIManager Instance;
+    public static GameOverUIManager Instance;  // Singleton instance
 
-    public CanvasGroup gameOverCanvasGroup; // Canvas Group
-    public TextMeshProUGUI coinText;
+    public GameObject gameOverCanvas; // Assign this in the Inspector
+    public TextMeshProUGUI finalScoreText; // Assign this in the Inspector
 
     private void Awake()
     {
@@ -18,41 +19,23 @@ public class GameOverUIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (gameOverCanvasGroup != null)
-        {
-            gameOverCanvasGroup.alpha = 0; // Make it invisible at start
-            gameOverCanvasGroup.interactable = false;
-            gameOverCanvasGroup.blocksRaycasts = false;
-        }
-        else
-        {
-            Debug.LogError("CanvasGroup is missing on GameOverCanvas!");
-        }
     }
 
-    public void ShowGameOverCanvas(int coins)
+    private void Start()
     {
-        if (gameOverCanvasGroup != null)
-        {
-            gameOverCanvasGroup.alpha = 1;  // Show UI
-            gameOverCanvasGroup.interactable = true;
-            gameOverCanvasGroup.blocksRaycasts = true;
-            coinText.text = "Coins: " + coins;
-        }
-        else
-        {
-            Debug.LogError("GameOverCanvas reference is missing!");
-        }
+        gameOverCanvas.SetActive(false); // Hide Game Over canvas at the start
     }
 
-    public void HideGameOverCanvas()
+    public void ShowGameOverCanvas(int finalScore)
     {
-        if (gameOverCanvasGroup != null)
-        {
-            gameOverCanvasGroup.alpha = 0;  // Hide UI
-            gameOverCanvasGroup.interactable = false;
-            gameOverCanvasGroup.blocksRaycasts = false;
-        }
+        gameOverCanvas.SetActive(true);
+        finalScoreText.text = $"Coins Collected: {finalScore}"; // Update with the final coin count
+        Time.timeScale = 0f; // Pause the game
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Resume game time
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
     }
 }

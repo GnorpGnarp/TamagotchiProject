@@ -46,13 +46,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameOverUIManager.Instance != null)
         {
-            GameOverUIManager.Instance.ShowGameOverCanvas(CoinManager.Instance.playerCoins);
+            GameOverUIManager.Instance.ShowGameOverCanvas(CoinManager.Instance?.playerCoins ?? 0);
             Time.timeScale = 0f;
         }
         else
         {
-            Debug.LogError("GameOverUIManager.Instance is null!");
+            Debug.LogError("GameOverUIManager.Instance is null! Make sure it's in the scene.");
         }
     }
+
 
 }

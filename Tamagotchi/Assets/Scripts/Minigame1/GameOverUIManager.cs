@@ -38,4 +38,10 @@ public class GameOverUIManager : MonoBehaviour
         Time.timeScale = 1f; // Resume game time
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
     }
+
+    public void ReturnToMainRoom()
+    {
+        Time.timeScale = 1f; // Ensure time is resumed
+        SceneManager.LoadScene("MainRoom"); // Load the Main Room scene
+    }
 }

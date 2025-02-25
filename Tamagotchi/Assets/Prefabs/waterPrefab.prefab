@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4121008307106960286}
   - component: {fileID: 7171044405700740169}
   - component: {fileID: 1859558634999434685}
+  - component: {fileID: 2237054496959963479}
+  - component: {fileID: 7907275750213600320}
   m_Layer: 0
   m_Name: waterPrefab
   m_TagString: Untagged
@@ -281,7 +283,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539662542063153200}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -300,3 +302,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2237054496959963479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539662542063153200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73b01b6fc9348941b61233a7be7e715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodType: 0
+--- !u!114 &7907275750213600320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539662542063153200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619937c01aca37242bcbde6575483af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

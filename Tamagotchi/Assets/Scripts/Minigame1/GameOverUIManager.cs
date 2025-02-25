@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro; // Import TextMeshPro namespace
-
+using TMPro; 
 public class GameOverUIManager : MonoBehaviour
 {
-    public static GameOverUIManager Instance;  // Singleton instance
+    public static GameOverUIManager Instance;  
 
-    public GameObject gameOverCanvas; // Assign this in the Inspector
-    public TextMeshProUGUI finalScoreText; // Assign this in the Inspector
+    public GameObject gameOverCanvas; 
+    public TextMeshProUGUI finalScoreText; 
 
     private void Awake()
     {
@@ -23,13 +22,13 @@ public class GameOverUIManager : MonoBehaviour
 
     private void Start()
     {
-        gameOverCanvas.SetActive(false); // Hide Game Over canvas at the start
+        gameOverCanvas.SetActive(false); 
     }
 
     public void ShowGameOverCanvas(int finalScore)
     {
         gameOverCanvas.SetActive(true);
-        finalScoreText.text = $"Coins Collected: {finalScore}"; // Update with the final coin count
+        finalScoreText.text = $"Coins Collected: {finalScore}"; 
         Time.timeScale = 0f; // Pause the game
     }
 

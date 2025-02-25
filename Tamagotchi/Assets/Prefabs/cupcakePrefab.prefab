@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2707303033625573888}
   - component: {fileID: 7455798762844620199}
   - component: {fileID: 6894299909801827890}
+  - component: {fileID: 3062028246238329787}
+  - component: {fileID: 8610036139155319304}
   m_Layer: 0
   m_Name: cupcakePrefab
   m_TagString: Untagged
@@ -129,7 +131,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3376674814600618137}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -148,3 +150,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3062028246238329787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376674814600618137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73b01b6fc9348941b61233a7be7e715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodType: 2
+--- !u!114 &8610036139155319304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3376674814600618137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619937c01aca37242bcbde6575483af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

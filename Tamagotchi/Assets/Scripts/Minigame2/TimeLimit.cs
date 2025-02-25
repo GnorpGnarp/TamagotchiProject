@@ -37,8 +37,16 @@ public class TimeLimit : MonoBehaviour
 
     void TimeUp()
     {
-        // Logic when time is up (e.g., end the game or show results)
         Debug.Log("Time's up!");
-        // Add your game over or time-up handling code here
+
+        if (GameOverUIManager.Instance != null)
+        {
+            GameOverUIManager.Instance.ShowGameOverCanvas(CoinManager.Instance?.playerCoins ?? 0);
+            Time.timeScale = 0f; // Pause the game
+        }
+        else
+        {
+            Debug.LogError("GameOverUIManager.Instance is null! Make sure it's in the scene.");
+        }
     }
 }

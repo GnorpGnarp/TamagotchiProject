@@ -7,6 +7,31 @@ public class Food : MonoBehaviour
 
     private bool isDropped = false; // To check if the food was dropped
 
+    private void Start()
+    {
+        // Deduct coins when the food is spawned
+        DeductCoinsOnSpawn();
+    }
+
+    private void DeductCoinsOnSpawn()
+    {
+        // Check if the food is one that requires coins and deduct them immediately
+        if (foodType == FoodType.HotDog || foodType == FoodType.Cupcake)
+        {
+            if (CoinManager.Instance.playerCoins >= 5)
+            {
+                CoinManager.Instance.SubtractCoins(5); // Deduct 5 coins for these foods
+                Debug.Log($"{foodType} spawned! Coins deducted.");
+            }
+            else
+            {
+                Debug.Log("Not enough coins to spawn Hot Dog or Cupcake!");
+                Destroy(gameObject); // Destroy the food if not enough coins
+            }
+        }
+        // No coin deduction needed for Water
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the food collided with the Tamagotchi
@@ -19,26 +44,18 @@ public class Food : MonoBehaviour
 
     private void FeedTamagotchi(GameObject tamagotchi)
     {
-        // Check if the player has enough coins for Hot Dog or Cupcake
-        if (foodType == FoodType.HotDog || foodType == FoodType.Cupcake)
+        // Handle feeding behavior after the food is spawned and coins are already deducted
+        if (foodType == FoodType.Water)
         {
-            if (CoinManager.Instance.playerCoins >= 5)
-            {
-                CoinManager.Instance.SubtractCoins(5); // Deduct 5 coins for these foods
-                Debug.Log($"{foodType} fed to Tamagotchi! Coins deducted.");
-                Destroy(gameObject); // Remove food after feeding
-            }
-            else
-            {
-                Debug.Log("Not enough coins to feed Hot Dog or Cupcake!");
-            }
-        }
-        else if (foodType == FoodType.Water)
-        {
-            // Water is free, no coin deduction
+            // Water is free, no coin deduction needed
             Debug.Log("Water fed to Tamagotchi! No coins deducted.");
-            Destroy(gameObject); // Remove food after feeding
         }
+        else
+        {
+            Debug.Log($"{foodType} fed to Tamagotchi!");
+        }
+
+        Destroy(gameObject); // Remove food after feeding
     }
 
     // This function can be used when the food is dropped on the floor

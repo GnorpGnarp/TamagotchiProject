@@ -24,6 +24,7 @@ public class Tamagotchi : MonoBehaviour
 
     void Update()
     {
+
         // Gradually decrease the meters over time
         hunger -= decayRate * Time.deltaTime;
         fun -= decayRate * Time.deltaTime;
@@ -31,10 +32,12 @@ public class Tamagotchi : MonoBehaviour
 
         // Update the love meter based on the current values
         UpdateLoveMeter();
+
     }
 
     void UpdateLoveMeter()
     {
+        Debug.Log($"Updating love meter: Hunger = {hunger}, Fun = {fun}, Cleanliness = {cleanliness}");
         // Calculate the love meter based on hunger, fun, and cleanliness
         float targetLoveValue = (hunger + fun + cleanliness) / 3f;
 
@@ -64,8 +67,10 @@ public class Tamagotchi : MonoBehaviour
     public void Feed()
     {
         hunger = 100f;
+        Debug.Log("Hunger reset to 100. Calling UpdateLoveMeter()");
         UpdateLoveMeter();
     }
+
 
     public void Play()
     {

@@ -34,29 +34,30 @@ public class Food : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the food collided with the Tamagotchi
+        Debug.Log($"Food collided with: {other.gameObject.name}"); // Log collision detection
+
         if (other.CompareTag("Tamagotchi"))
         {
-            // Feed the Tamagotchi
+            Debug.Log("Tamagotchi detected! Feeding...");
             FeedTamagotchi(other.gameObject);
         }
     }
 
+
+
     private void FeedTamagotchi(GameObject tamagotchi)
     {
-        // Handle feeding behavior after the food is spawned and coins are already deducted
-        if (foodType == FoodType.Water)
+        // Check if the Tamagotchi script is attached and call Feed()
+        Tamagotchi tamagotchiScript = tamagotchi.GetComponent<Tamagotchi>();
+        if (tamagotchiScript != null)
         {
-            // Water is free, no coin deduction needed
-            Debug.Log("Water fed to Tamagotchi! No coins deducted.");
-        }
-        else
-        {
-            Debug.Log($"{foodType} fed to Tamagotchi!");
+            tamagotchiScript.Feed();
+            Debug.Log($"{foodType} fed to Tamagotchi! Hunger reset to 100%");
         }
 
         Destroy(gameObject); // Remove food after feeding
     }
+
 
     // This function can be used when the food is dropped on the floor
     public void DropFoodOnFloor()

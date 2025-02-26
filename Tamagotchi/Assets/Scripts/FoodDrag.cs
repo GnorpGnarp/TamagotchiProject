@@ -2,60 +2,42 @@ using UnityEngine;
 
 public class FoodDrag : MonoBehaviour
 {
+    private Vector3 offset;
     private bool isDragging = false;
-    private Vector3 initialPosition;
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     private void OnMouseDown()
     {
-        isDragging = true;
-        initialPosition = transform.position; // Store initial position of food
-    }
-
-    private void OnMouseDrag()
-    {
-        if (isDragging)
+        if (mainCamera != null)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(mousePosition.x, mousePosition.y, 0f); // Follow the mouse
+            offset = transform.position - mainCamera.ScreenToWorldPoint(Input.mousePosition);
         }
+        isDragging = true;
     }
 
     private void OnMouseUp()
     {
-        isDragging = false;
-
-        // Check if the food is dropped on the Tamagotchi or floor
-        // If it's dropped on the floor, invoke DropFoodOnFloor (you can later improve this)
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f); // Detect objects within a small radius
-        foreach (Collider2D collider in colliders)
+        if (isDragging)
         {
-            if (collider.CompareTag("Tamagotchi"))
-            {
-                // The food is dropped on the Tamagotchi
-                FeedTamagotchi(collider.gameObject);
-            }
-            else if (collider.CompareTag("Floor"))
-            {
-                // The food is dropped on the floor
-                DropFoodOnFloor();
-            }
+            // Call the FeedTamagotchi function when the food is released
+            GameObject tamagotchiObject = GameObject.Find("Tamagotchi");
+            Food foodScript = GetComponent<Food>();
+            foodScript.FeedTamagotchi();
         }
-
-        // Reset position if not dropped correctly
-        transform.position = initialPosition;
+        isDragging = false;
     }
 
-    private void FeedTamagotchi(GameObject tamagotchi)
+    private void Update()
     {
-        // Feed the Tamagotchi
-        // You can call the Tamagotchi’s feeding method here
-        tamagotchi.GetComponent<Tamagotchi>().Feed();
-
-    }
-
-    private void DropFoodOnFloor()
-    {
-        // Food stays on the floor until picked up again
-        Debug.Log("Food dropped on the floor!");
+        if (isDragging)
+        {
+            Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        }
     }
 }

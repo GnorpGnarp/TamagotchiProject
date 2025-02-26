@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodType: 1
+  tamagotchiObject: {fileID: 0}
 --- !u!114 &8685694670775203002
 MonoBehaviour:
   m_ObjectHideFlags: 0

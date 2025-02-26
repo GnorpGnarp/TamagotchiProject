@@ -6,9 +6,9 @@ public class Tamagotchi : MonoBehaviour
     public Slider loveSlider;  // Reference to the love meter slider
     public Image fillImage;    // Reference to change the slider's fill color
 
-    private float hunger = 100f;      // Hunger meter (0-100)
-    private float fun = 100f;         // Fun meter (0-100)
-    private float cleanliness = 100f; // Cleanliness meter (0-100)
+    public float hunger = 100f;      // Hunger meter (0-100)
+    public float fun = 100f;         // Fun meter (0-100)
+    public float cleanliness = 100f; // Cleanliness meter (0-100)
     private float currentLoveValue = 100f;  // Store the current love value for smooth transition
     public float decayRate = 0.1f;  // Lower decay rate to make it slower
     public float loveMeterSmoothSpeed = 5f; // Smooth transition speed
@@ -37,7 +37,7 @@ public class Tamagotchi : MonoBehaviour
 
     void UpdateLoveMeter()
     {
-        Debug.Log($"Updating love meter: Hunger = {hunger}, Fun = {fun}, Cleanliness = {cleanliness}");
+       
         // Calculate the love meter based on hunger, fun, and cleanliness
         float targetLoveValue = (hunger + fun + cleanliness) / 3f;
 
@@ -70,6 +70,7 @@ public class Tamagotchi : MonoBehaviour
         Debug.Log("Hunger reset to 100. Calling UpdateLoveMeter()");
         UpdateLoveMeter();
     }
+
 
 
     public void Play()

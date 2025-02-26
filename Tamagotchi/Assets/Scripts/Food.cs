@@ -2,67 +2,90 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
+    // Enum to differentiate food types
     public enum FoodType { Water, HotDog, Cupcake }
-    public FoodType foodType; // To differentiate between food types
+    public FoodType foodType;
+
+    // Reference to Tamagotchi script or GameObject
+    private Tamagotchi tamagotchi;
+    [SerializeField] private GameObject tamagotchiObject;  // This will be set dynamically at runtime
 
     private bool isDropped = false; // To check if the food was dropped
 
-    private void Start()
+    void Start()
     {
+        // Dynamically find the Tamagotchi object in the scene
+        if (tamagotchiObject == null)
+        {
+            tamagotchiObject = GameObject.Find("Tamagotchi"); // Ensure this matches the name of your Tamagotchi GameObject
+        }
+
         // Deduct coins when the food is spawned
         DeductCoinsOnSpawn();
     }
 
+    // This is where you can implement your coin deduction logic
     private void DeductCoinsOnSpawn()
     {
-        // Check if the food is one that requires coins and deduct them immediately
-        if (foodType == FoodType.HotDog || foodType == FoodType.Cupcake)
-        {
-            if (CoinManager.Instance.playerCoins >= 5)
-            {
-                CoinManager.Instance.SubtractCoins(5); // Deduct 5 coins for these foods
-                Debug.Log($"{foodType} spawned! Coins deducted.");
-            }
-            else
-            {
-                Debug.Log("Not enough coins to spawn Hot Dog or Cupcake!");
-                Destroy(gameObject); // Destroy the food if not enough coins
-            }
-        }
-        // No coin deduction needed for Water
+        // Your logic for deducting coins when food is spawned
+        Debug.Log("Coins deducted!");
     }
 
+    // Example of a method for feeding the Tamagotchi when colliding with it
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"Food collided with: {other.gameObject.name}"); // Log collision detection
-
-        if (other.CompareTag("Tamagotchi"))
+        // Only feed the Tamagotchi if food hasn't been dropped yet
+        if (!isDropped && other.CompareTag("Tamagotchi"))
         {
-            Debug.Log("Tamagotchi detected! Feeding...");
-            FeedTamagotchi(other.gameObject);
+            FeedTamagotchi(); // Call feed method when colliding with Tamagotchi
+            Debug.Log("Food collided with Tamagotchi! Feeding...");
+        }
+        else
+        {
+            // Drop the food on the floor
+            DropFood();
+            Debug.Log("Food dropped on the floor.");
         }
     }
 
-
-
-    private void FeedTamagotchi(GameObject tamagotchi)
+    // Method to reset hunger when food collides with Tamagotchi
+    public void FeedTamagotchi()
     {
-        // Check if the Tamagotchi script is attached and call Feed()
-        Tamagotchi tamagotchiScript = tamagotchi.GetComponent<Tamagotchi>();
-        if (tamagotchiScript != null)
+        if (tamagotchiObject == null)
         {
-            tamagotchiScript.Feed();
-            Debug.Log($"{foodType} fed to Tamagotchi! Hunger reset to 100%");
+            Debug.LogError("Tamagotchi object is null!");
+            return; // Exit early to prevent further issues
         }
 
-        Destroy(gameObject); // Remove food after feeding
+        // Try to get the Tamagotchi component
+        tamagotchi = tamagotchiObject.GetComponent<Tamagotchi>();
+
+        // Check if tamagotchi is assigned properly
+        if (tamagotchi == null)
+        {
+            Debug.LogError("Tamagotchi component not found on tamagotchiObject.");
+            return; // Exit early if Tamagotchi is not found
+        }
+
+        // Reset hunger and update love meter
+        tamagotchi.Feed(); // Calls Tamagotchi's Feed method (resets hunger)
+
+        // Return food to the pool and deactivate it
+        ReturnToFoodPool();
     }
 
-
-    // This function can be used when the food is dropped on the floor
-    public void DropFoodOnFloor()
+    // Drop the food to the floor (set its position to y = -4)
+    private void DropFood()
     {
-        // Make the food stay on the floor for a while (add a timer or make it visible)
-        Debug.Log($"{foodType} dropped on the floor.");
+        transform.position = new Vector3(transform.position.x, -4f, transform.position.z); // Drop to y = -4
+        isDropped = true; // Mark it as dropped
+    }
+
+    // Return food to the pool and deactivate it
+    private void ReturnToFoodPool()
+    {
+        // Assuming you have a pooler manager that handles returning objects to the pool
+        FoodPooler.Instance.ReturnFoodToPool(this.gameObject, foodType);  // Return food to the pooler with the correct food type
+        gameObject.SetActive(false); // Deactivate the food object in the scene
     }
 }

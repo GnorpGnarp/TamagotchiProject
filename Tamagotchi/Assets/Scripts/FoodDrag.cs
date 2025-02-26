@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Food;
 
 public class FoodDrag : MonoBehaviour
 {
@@ -24,13 +25,35 @@ public class FoodDrag : MonoBehaviour
     {
         if (isDragging)
         {
-            // Call the FeedTamagotchi function when the food is released
-            GameObject tamagotchiObject = GameObject.Find("Tamagotchi");
-            Food foodScript = GetComponent<Food>();
-            foodScript.FeedTamagotchi();
+            // Check if the food is dropped on the Tamagotchi
+            Collider2D tamagotchiCollider = GameObject.FindGameObjectWithTag("Tamagotchi").GetComponent<Collider2D>();
+
+            // Check if the food has collided with the Tamagotchi collider
+            if (tamagotchiCollider != null && tamagotchiCollider.bounds.Contains(transform.position))
+            {
+                // If it's on the Tamagotchi, feed it
+                Food foodScript = GetComponent<Food>();
+                foodScript.FeedTamagotchi();
+            }
+            else
+            {
+                // If not on Tamagotchi, drop it on the floor
+                DropFoodOnFloor();
+            }
         }
+
         isDragging = false;
     }
+
+    private void DropFoodOnFloor()
+    {
+        // Logic to drop the food to the floor
+        transform.position = new Vector3(transform.position.x, -4f, transform.position.z); // or your preferred Y position
+        Food foodScript = GetComponent<Food>();
+        FoodPooler.Instance.ReturnFoodToPool(this.gameObject, foodScript.foodType); // Return to pool with the correct foodType
+
+    }
+
 
     private void Update()
     {

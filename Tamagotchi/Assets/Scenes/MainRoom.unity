@@ -3089,8 +3089,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterPrefab: {fileID: 1970567534}
+  hotDogPrefab: {fileID: 614228769}
   cupcakePrefab: {fileID: 1755822932}
-  hotdogPrefab: {fileID: 614228769}
 --- !u!224 &1117757725
 RectTransform:
   m_ObjectHideFlags: 0

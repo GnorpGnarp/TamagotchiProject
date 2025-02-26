@@ -49,10 +49,9 @@ public class FoodDrag : MonoBehaviour
     {
         // Logic to drop the food to the floor
         transform.position = new Vector3(transform.position.x, -4f, transform.position.z); // or your preferred Y position
-        Food foodScript = GetComponent<Food>();
-        FoodPooler.Instance.ReturnFoodToPool(this.gameObject, foodScript.foodType); // Return to pool with the correct foodType
-
+                                                                                           // Do not return to pool here yet, only return when fed!
     }
+
 
 
     private void Update()

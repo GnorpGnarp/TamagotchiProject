@@ -51,6 +51,7 @@ public class Food : MonoBehaviour
     // Method to reset hunger when food collides with Tamagotchi
     public void FeedTamagotchi()
     {
+        // Check if tamagotchiObject is assigned
         if (tamagotchiObject == null)
         {
             Debug.LogError("Tamagotchi object is null!");
@@ -67,12 +68,19 @@ public class Food : MonoBehaviour
             return; // Exit early if Tamagotchi is not found
         }
 
-        // Reset hunger and update love meter
-        tamagotchi.Feed(); // Calls Tamagotchi's Feed method (resets hunger)
-
-        // Return food to the pool and deactivate it
-        ReturnToFoodPool();
+        // Now call the Feed method
+        try
+        {
+            tamagotchi.Feed();
+            // After feeding, return food to pool
+            FoodPooler.Instance.ReturnFoodToPool(this.gameObject, foodType); // Return to pool after feeding
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error feeding Tamagotchi: " + ex.Message);
+        }
     }
+
 
     // Drop the food to the floor (set its position to y = -4)
     private void DropFood()

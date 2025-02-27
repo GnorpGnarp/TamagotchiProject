@@ -5,6 +5,7 @@ public class DraggableItem : MonoBehaviour
     private Vector3 originalPosition; // To store the original position of the soap
     private Vector3 offset; // The offset between the mouse position and the object
     private bool isDragging = false; // To track whether the item is being dragged
+    public FoamPooler foamPooler; // Reference to the FoamPooler script
 
     public Tamagotchi tamagotchiScript; // Reference to the Tamagotchi script
     public GameObject foamPrefab; // Reference to the foam prefab
@@ -51,14 +52,17 @@ public class DraggableItem : MonoBehaviour
 
     void ApplySoapToTamagotchi()
     {
-        // Spawn foam when soap is applied to the Tamagotchi
         if (foamInstance == null)
         {
-            Vector3 spawnPosition = tamagotchiScript.transform.position; // Get the Tamagotchi's position
+            Vector3 spawnPosition = tamagotchiScript.transform.position;
+            spawnPosition.y = -2f; // Set y position correctly  
+
             foamInstance = Instantiate(foamPrefab, spawnPosition, Quaternion.identity);
-            foamInstance.SetActive(true); // Activate foam instance
-            tamagotchiScript.ApplySoap(spawnPosition); // Notify Tamagotchi to apply soap
+            foamInstance.SetActive(true);
+            tamagotchiScript.ApplySoap(spawnPosition);
+            //
         }
     }
+
 
 }

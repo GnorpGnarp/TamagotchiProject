@@ -13,11 +13,13 @@ public class DraggableShower : MonoBehaviour
     public Tamagotchi tamagotchiScript; // Reference to Tamagotchi to interact with foam
     private bool isWaterSpraying = false;
 
+    private Tamagotchi tamagotchi;
     void Start()
     {
         originalPosition = transform.position; // Store the initial position of the showerhead
         showerheadRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
         SwitchToNormalShowerhead(); // Ensure it's using the normal sprite by default
+        tamagotchi = FindObjectOfType<Tamagotchi>();
     }
 
     void OnMouseDown()
@@ -68,13 +70,22 @@ public class DraggableShower : MonoBehaviour
         showerheadRenderer.sprite = normalShowerheadSprite; // Switch back to normal showerhead
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Foam")) // Make sure your foam has the "Foam" tag
+        if (collision.CompareTag("Foam")) // Make sure foam has the tag "Foam"
         {
-            CleanFoam();
+            Destroy(collision.gameObject); // Remove foam
+
+            if (tamagotchi != null)
+            {
+                tamagotchi.cleanliness = 100f; // Reset cleanliness
+                tamagotchi.SetSoapApplied(false); // Reset soap state
+            }
         }
     }
+
+
+
 
     void CleanFoam()
     {

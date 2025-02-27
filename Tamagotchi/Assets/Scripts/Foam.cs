@@ -4,25 +4,32 @@ public class Foam : MonoBehaviour
 {
     private bool isCleaned = false;
 
-    // You can attach the foam to the Tamagotchi if you want to clean it with the shower.
+    public FoamPooler foamPooler;  // Reference to the FoamPooler
+
+    void Start()
+    {
+        if (foamPooler == null)
+        {
+            Debug.LogError("FoamPooler not assigned!");
+        }
+    }
+
     public void CleanFoam()
     {
         if (!isCleaned)
         {
             isCleaned = true;
-            gameObject.SetActive(false);  // Deactivate the foam when cleaned.
+            gameObject.SetActive(false);  // Deactivate foam when cleaned.
+            foamPooler.ReturnFoamToPool(gameObject);  // Return foam to the pool
             Debug.Log("Foam cleaned!");
         }
     }
 
-    // If you want foam to "react" or do something when in the world.
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Shower"))
         {
-            // Trigger foam cleaning if it enters the shower's area
             CleanFoam();
         }
     }
-
 }

@@ -1534,6 +1534,8 @@ MonoBehaviour:
   decayRate: 1
   loveMeterSmoothSpeed: 5
   foamPooler: {fileID: 518184702}
+  happySprite: {fileID: 731279362}
+  sadSprite: {fileID: 1840030382}
 --- !u!61 &481081293
 BoxCollider2D:
   m_ObjectHideFlags: 0

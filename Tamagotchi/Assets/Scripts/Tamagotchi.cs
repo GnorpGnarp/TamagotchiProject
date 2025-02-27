@@ -17,6 +17,10 @@ public class Tamagotchi : MonoBehaviour
     private GameObject foamInstance;
     private bool isSoapApplied = false;
 
+    // References to the happy and sad sprites
+    public GameObject happySprite;
+    public GameObject sadSprite;
+
     void Start()
     {
         UpdateLoveMeter();
@@ -41,12 +45,25 @@ public class Tamagotchi : MonoBehaviour
         currentLoveValue = Mathf.MoveTowards(currentLoveValue, targetLoveValue, Time.deltaTime * loveMeterSmoothSpeed);
         loveSlider.value = currentLoveValue;
 
+        // Update the fill color based on love meter value
         if (currentLoveValue >= 70f)
             fillImage.color = Color.magenta;
         else if (currentLoveValue >= 40f)
             fillImage.color = Color.yellow;
         else
             fillImage.color = Color.blue;
+
+        // Change sprite based on love meter value
+        if (currentLoveValue < 40f)
+        {
+            sadSprite.SetActive(true);
+            happySprite.SetActive(false);
+        }
+        else
+        {
+            sadSprite.SetActive(false);
+            happySprite.SetActive(true);
+        }
     }
 
     public void Feed() { hunger = 100f; UpdateLoveMeter(); }
